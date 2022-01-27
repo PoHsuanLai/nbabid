@@ -1,0 +1,58 @@
+type Users {
+    id: ID!
+    username: String!
+    password: String!
+    cash: Int!
+    bid: String
+}
+
+type Bid {
+    gameID: ID!
+    bidFor: String
+}
+
+type Mutation {
+    createUser(input: signUpInput!): Users!
+    updateCash(input: CashInput!): Users!
+    createBid(name: String!, bid: String!, price: Int!): Users!
+}
+
+type Query {
+    users(input: userQuery!): Users
+    games: [Games!]
+}
+
+type Games {
+    id: ID
+    date: String
+    top: String
+    topScore: Int
+    bot: String
+    botScore: Int
+}
+
+type Subscription {
+    userCreated: Users!
+    cashUpdated: ID!
+    bidCreated: Users!
+}
+
+input CashInput {
+    id: ID!
+    gameId: ID!
+    bidMoney: Int!
+    bidFor: String!
+}
+
+input signUpInput {
+    id: ID!
+    username: String!
+    password: String!
+    cash: Int!
+    bid: String!
+}
+
+input userQuery {
+    username: String!
+    password: String!
+}
