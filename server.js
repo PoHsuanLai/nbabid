@@ -14,6 +14,7 @@ import Query from "./backend/src/resolvers/Query.js"
 import Mutation from "./backend/src/resolvers/Mutation.js"
 import Subscription from "./backend/src/resolvers/Subscription.js"
 import mongo from "./backend/src/mongo.js"
+import wakeUpDyno from "./wakeUpDyno.js";
 
 const _dirname = dirname(fileURLToPath(import.meta.url))
 const port = process.env.PORT || 80
@@ -49,6 +50,8 @@ server.installSubscriptionHandlers(httpServer)
 mongo.connect();
 
 httpServer.listen(port, () => {
+    const DYNO_URL = "https://nbabid.heroku.com/"
+    wakeUpDyno(DYNO_URL)
     console.log(`🚀 Server Ready at ${port}! 🚀`)
     console.log(`Graphql Port at ${port}${server.subscriptionsPath}`)
 })
