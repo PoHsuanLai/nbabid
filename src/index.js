@@ -16,7 +16,7 @@ const url = new URL('/graphql', window.location.href)
 
 const httpLink = new HttpLink({
   // uri: "http://localhost:4000/",
-  uri = url.href
+  uri: url.href
 });
 
 const wsLink = new WebSocketLink({
