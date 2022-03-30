@@ -6,7 +6,7 @@ import DatePicker from '@mui/lab/DatePicker';
 import Stack from '@mui/material/Stack';
 
 export default function TimePickers() {
-  const [value, setValue] = React.useState(new Date());
+  const [date, setDate] = React.useState(new Date())
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -15,10 +15,7 @@ export default function TimePickers() {
           label="Date"
           openTo="year"
           views={['year', 'month', 'day']}
-          value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-          }}
+          value={date}
           renderInput={(params) => <TextField {...params} />}
         />
       </Stack>

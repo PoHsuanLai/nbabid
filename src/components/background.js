@@ -3,19 +3,18 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Cards from './cards';
 import CounterCards from './counterCards';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material/Button';
 import Bid from '../containers/Bid'
 import TimePickers from './TimePickers';
 
 export default function Background(props){
     
     const {games, signIn, user} = props
-    const [start, setStart] = React.useState(false)
     const [render, setRender] = React.useState(null)
-    const [renderdown, setRenderDown] = React.useState(null)
     const [openBid, setOpenBid] = React.useState(false)
     const [position, setPosition] = React.useState({})
     const [date, setDate] = React.useState(new Date())
+    const [value, setValue] = React.useState(new Date());
 
     const handleDate = (date) => {
         let dateChar = date.split('')
@@ -34,7 +33,7 @@ export default function Background(props){
     }
 
     const handleClick= ()=> {
-        setStart(true)
+        setDate(value)
         let currentGames = []
         const month = ['01','02','03','04','05','06','07','08','09','10','11','12']
         const currentDate = `${date.getFullYear()}-${month[date.getMonth()]}-${date.getDate()}`
@@ -56,8 +55,9 @@ export default function Background(props){
         <Container maxwidth='sm'>
             <>
                 <>
-                    <div></div>
-                    <TimePickers></TimePickers>
+                    <br></br>
+                    <TimePickers onChange={(newValue) => {setValue(newValue);}}></TimePickers>
+                    <Button variant="outlined" onClick={handleClick}>確定</Button>
                 </>
                 {render}    
             </>
