@@ -3,12 +3,12 @@ type Users {
     username: String!
     password: String!
     cash: Int!
-    bid: String
 }
 
 type Bid {
     id: ID!
     gameID: ID!
+    user: ID!
     bidFor: String!
     bidMoney: Int!
     result: Int

@@ -5,8 +5,7 @@ const userSchema = new mongoose.Schema(
         id: {type: String, unique: true},
         username:{type: String, unique: true},
         password:{type: String, unique: true},
-        cash:{type: Number},
-        bid: {type: String},  
+        cash:{type: Number}, 
     },
     {versionKey: false},
     {
@@ -24,8 +23,19 @@ const gameSchema = new mongoose.Schema(
     {versionKey: false},
     {collection: 'scores'}
 )
+const bidSchema = new mongoose.Schema(
+    {
+        id: {type: String, unique: true},
+        gameID:{type: String, unique: true},
+        user:{type: String, unique: true},
+        bidFor:{type: String},
+        bidMoney: {type: Number},  
+        result:{type: Number},
+    }
+)
 
 const userModel = mongoose.model('users', userSchema)
 const games = mongoose.model('scores', gameSchema)
+const bids = mongoose.model('bids',bidSchema)
 
-export {userModel, games}
+export {userModel, games, bids}

@@ -13,6 +13,11 @@ const Query = {
     games: async (parent, args, {db}, info)=>{
         const games = await db.games.find()
         return games
+    },
+    bid: async (parent, args, {db}, info)=>{
+        const bids = await db.bidModel.find({username: args.input.username})
+        if(bids===null) throw new Error('cant find bid')
+        return bids
     }
 }
 

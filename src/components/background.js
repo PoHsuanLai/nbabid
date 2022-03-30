@@ -54,7 +54,7 @@ export default function Background(props){
             <>
                 <>
                     <br></br>
-                    <TimePickers ref={stateRef}></TimePickers>
+                    <TimePickers stateRef={stateRef}></TimePickers>
                     <Button variant="outlined" onClick={handleClick}>確定</Button>
                 </>
                 {render}    
