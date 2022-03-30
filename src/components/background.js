@@ -1,9 +1,7 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Cards from './cards';
-import CounterCards from './counterCards';
-import { Button } from '@mui/material/Button';
+import Button from '@mui/material/Button';
 import Bid from '../containers/Bid'
 import TimePickers from './TimePickers';
 
@@ -41,7 +39,7 @@ export default function Background(props){
             if(currentDate===games.games[i].date){
                 currentGames.push(games.games[i])}
         }
-        setRender(currentGames.map((e,index)=>{
+        setRender(currentGames.map((e)=>{
             return <Cards top={e.top} topScore={e.topScore} bot={e.bot} botScore={e.botScore} date={handleDate(e.date)} bid={bid} />
         }))
     }

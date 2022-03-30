@@ -43,7 +43,6 @@ const teamPics={
 export default function Cards(props){
     const {top, topScore, bot, botScore, date, bid} = props
 
-    if(topScore===null ){
         return(
         <Card sx={{ maxWidth: 475, display: 'flex', ml: 10, mt: 2, mb:2}}>
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
@@ -88,8 +87,5 @@ export default function Cards(props){
                 </Box>
             </Box>
         </Card>
-    )}
-    else {
-        return <></>
-    }
+    )
 }
