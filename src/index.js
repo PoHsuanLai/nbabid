@@ -21,8 +21,7 @@ const httpLink = new HttpLink({
 
 const wsLink = new WebSocketLink({
   // uri: 'ws://localhost:4000/',
-  // uri: url.href.replace('http', 'ws'),
-  uri:url.href,
+  uri: url.href.replace('http', 'ws'),
   options: { reconnect: true },
 })
 

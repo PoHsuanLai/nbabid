@@ -5,6 +5,7 @@ import Cards from './cards';
 import CounterCards from './counterCards';
 import { Button, Typography } from '@mui/material';
 import Bid from '../containers/Bid'
+import TimePicker from './timePicker';
 
 export default function Background(props){
     
@@ -52,9 +53,7 @@ export default function Background(props){
                 {   start?
                     render.concat(renderdown)
                     :
-                <Button variant='text' size='large' onClick={handleClick} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <Typography sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 45}}>Start?</Typography>
-                </Button>
+                <TimePicker></TimePicker>
             }
             </Box>
         </Container>
