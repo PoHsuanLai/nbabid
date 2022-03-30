@@ -21,7 +21,7 @@ export default function TimePickers(prop) {
           openTo="year"
           views={['year', 'month', 'day']}
           value={value}
-          onChange={(newValue) => {setValue(newValue);}}
+          onChange={(newValue) => {setValue(newValue);console.log(value)}}
           renderInput={(params) => <TextField {...params} />}
         />
       </Stack>
