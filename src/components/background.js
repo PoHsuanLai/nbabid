@@ -12,7 +12,7 @@ export default function Background(props){
     const [openBid, setOpenBid] = React.useState(false)
     const [position, setPosition] = React.useState({})
     const [date, setDate] = React.useState(new Date())
-    const stateRef = useRef(new Date())
+    const stateRef = React.useRef(new Date())
 
     const handleDate = (date) => {
         let dateChar = date.split('')
