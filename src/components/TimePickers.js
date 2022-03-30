@@ -12,7 +12,7 @@ export default function TimePickers() {
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Stack spacing={3}>
         <DatePicker
-          label="Pick a Date"
+          label="Date"
           openTo="year"
           views={['year', 'month', 'day']}
           value={value}

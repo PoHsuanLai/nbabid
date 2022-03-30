@@ -15,6 +15,7 @@ export default function Background(props){
     const [renderdown, setRenderDown] = React.useState(null)
     const [openBid, setOpenBid] = React.useState(false)
     const [position, setPosition] = React.useState({})
+    const [date, setDate] = React.useState(new Date())
 
     const handleDate = (date) => {
         let dateChar = date.split('')
@@ -22,6 +23,7 @@ export default function Background(props){
                     parseInt(`${dateChar[5]}${dateChar[6]}`), parseInt(`${dateChar[8]}${dateChar[9]}`)]
         return (newDate)
     }
+
     const bid = (position) => {
         if(!signIn) {
             alert('Please Sign In First!')
@@ -30,12 +32,18 @@ export default function Background(props){
         setOpenBid(true)
         setPosition({team: position.team, date: position.date})
     }
+
     const handleClick= ()=> {
         setStart(true)
-        let newDate = []
-        for (var i in games.games) newDate.push(handleDate(games.games[i].date))
-        setRender(games.games.map((e,index)=>{
-            return <Cards top={e.top} topScore={e.topScore} bot={e.bot} botScore={e.botScore} date={newDate[index]} bid={bid} />
+        let currentGames = []
+        const month = ['01','02','03','04','05','06','07','08','09','10','11','12']
+        const currentDate = `${date.getFullYear()}-${month[date.getMonth()]}-${date.getDate()}`
+        for (var i in games.games) {
+            if(currentDate===games.games[i].date){
+                currentGames.push(games.games[i])}
+        }
+        setRender(currentGames.map((e,index)=>{
+            return <Cards top={e.top} topScore={e.topScore} bot={e.bot} botScore={e.botScore} date={handleDate(e.date)} bid={bid} />
         }))
         setRenderDown(games.games.map((e,index)=>{
             return <CounterCards top={e.top} topScore={e.topScore} bot={e.bot} botScore={e.botScore} date={newDate[index]} bid={bid} />
@@ -49,13 +57,13 @@ export default function Background(props){
     return(
         <>
         <Container maxwidth='sm'>
-            <Box sx={{ bgcolor: '#FFFFFF'}} >
-                {   start?
-                    render.concat(renderdown)
-                    :
-                <TimePickers></TimePickers>
-            }
-            </Box>
+            <>
+                <>
+                    <div></div>
+                    <TimePickers></TimePickers>
+                </>
+                {render}    
+            </>
         </Container>
         <Bid open={openBid} handleClose={handleClose} username={user} team={position.team} date={position.date}/>
         </>
