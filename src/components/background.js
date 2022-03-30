@@ -45,9 +45,6 @@ export default function Background(props){
         setRender(currentGames.map((e,index)=>{
             return <Cards top={e.top} topScore={e.topScore} bot={e.bot} botScore={e.botScore} date={handleDate(e.date)} bid={bid} />
         }))
-        setRenderDown(games.games.map((e,index)=>{
-            return <CounterCards top={e.top} topScore={e.topScore} bot={e.bot} botScore={e.botScore} date={newDate[index]} bid={bid} />
-        }))
     }
     const handleClose=()=>{
         setOpenBid(false)
