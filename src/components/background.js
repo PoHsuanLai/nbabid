@@ -53,7 +53,7 @@ export default function Background(props){
                     render.concat(renderdown)
                     :
                 <Button variant='text' size='large' onClick={handleClick} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <Typography sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 45}}>Ready?</Typography>
+                    <Typography sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 45}}>Start?</Typography>
                 </Button>
             }
             </Box>
