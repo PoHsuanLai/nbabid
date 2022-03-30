@@ -7,8 +7,11 @@ type Users {
 }
 
 type Bid {
+    id: ID!
     gameID: ID!
-    bidFor: String
+    bidFor: String!
+    bidMoney: Int!
+    result: Int
 }
 
 type Mutation {
@@ -20,6 +23,7 @@ type Mutation {
 type Query {
     users(input: userQuery!): Users
     games: [Games!]
+    bid(input: bidQueryMany!): [Bid]
 }
 
 type Games {
@@ -37,12 +41,6 @@ type Subscription {
     bidCreated: Users!
 }
 
-input CashInput {
-    id: ID!
-    gameId: ID!
-    bidMoney: Int!
-    bidFor: String!
-}
 
 input signUpInput {
     id: ID!
@@ -55,4 +53,8 @@ input signUpInput {
 input userQuery {
     username: String!
     password: String!
+}
+
+input bidQueryMany {
+    username: String!
 }

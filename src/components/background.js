@@ -12,7 +12,7 @@ export default function Background(props){
     const [openBid, setOpenBid] = React.useState(false)
     const [position, setPosition] = React.useState({})
     const [date, setDate] = React.useState(new Date())
-    const [value, setValue] = React.useState(new Date());
+    const stateRef = useRef(new Date())
 
     const handleDate = (date) => {
         let dateChar = date.split('')
@@ -31,7 +31,7 @@ export default function Background(props){
     }
 
     const handleClick= ()=> {
-        setDate(value)
+        setDate(stateRef)
         let currentGames = []
         const month = ['01','02','03','04','05','06','07','08','09','10','11','12']
         const currentDate = `${date.getFullYear()}-${month[date.getMonth()]}-${date.getDate()}`
@@ -54,7 +54,7 @@ export default function Background(props){
             <>
                 <>
                     <br></br>
-                    <TimePickers onChange={(newValue) => {setValue(newValue);}}></TimePickers>
+                    <TimePickers ref={stateRef}></TimePickers>
                     <Button variant="outlined" onClick={handleClick}>確定</Button>
                 </>
                 {render}    
