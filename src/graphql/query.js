@@ -7,7 +7,6 @@ export const GET_USERS_QUERY = gql`
             username
             password
             cash
-            bid
         }
     }
 `
@@ -20,6 +19,18 @@ export const GET_GAMES_QUERY = gql`
             topScore
             bot
             botScore
+        }
+    }
+`
+export const GET_BIDS_QUERY = gql`
+    query GetBidsQuery {
+        bids(input: $input) {
+            id
+            gameID
+            user
+            bidFor
+            bidMoney
+            result
         }
     }
 `

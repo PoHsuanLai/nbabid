@@ -8,18 +8,19 @@ const Mutation = {
         return newUser
     },
     updateCash: async(parent, { input }, { db, pubsub }) => {
-        let {id, gameId, bidMoney, bidFor} = input
-        const gameResult = db.scores.findOne(gameId)
-        function calculate(bidFor, gameResult, bidMoney){
-            const Winteam = gameResult.topScore>gameResult.botScore?top:bot
-            return bidFor===Winteam?2*bidMoney:0
-        }
-        let returnValue = calculate(bidFor, gameResult, bidMoney)
+        let {user, money} = input
+        const username = db.userModel.findOne(user)
+        // function calculate(bidFor, gameResult, bidMoney){
+        //     const Winteam = gameResult.topScore>gameResult.botScore?top:bot
+        //     return bidFor===Winteam?2*bidMoney:0
+        // }
+        // let returnValue = calculate(bidFor, gameResult, bidMoney)
+        const id = username[id]
         const find = await db.userModel.findOneAndUpdate(
             {id},
             {
                 $set: {
-                    cash: returnValue
+                    cash: username[cash]+money
                 }
             },
             {returnDocument: 'after'}
@@ -30,27 +31,12 @@ const Mutation = {
         return find
     },
     createBid: async(parent, { name, bid, price }, {db, pubsub}) => {
-        const newUser = await db.userModel.findOne({username: name})
-        const newBid = bid.concat(' ', newUser.bid)
-        const newCash = newUser.cash-price
-        const id= newUser.id
-        const update = await db.userModel.findOneAndUpdate(
-            {id},
-            {
-                $set: {
-                    cash: newCash,
-                    bid: newBid
-                }
-            },
-            {returnDocument: 'after'}
-        )
-        pubsub.publish("BID_CREATED"),{
-            bidCreated: {
-                username: name,
-                cash: newCash,
-            }
-        }
-        return update
+        const newBid = new db.bids(input)
+        await newBid.save()
+        pubsub.publish("BID_CREATED",{
+            bidCreated: newBid,
+        })
+        return newBid
     }
 }
 

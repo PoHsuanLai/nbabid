@@ -16,8 +16,8 @@ type Bid {
 
 type Mutation {
     createUser(input: signUpInput!): Users!
-    updateCash(input: CashInput!): Users!
-    createBid(name: String!, bid: String!, price: Int!): Users!
+    updateCash(input: cashInput!): Users!
+    createBid(input: bidInput!): Bid
 }
 
 type Query {
@@ -47,7 +47,6 @@ input signUpInput {
     username: String!
     password: String!
     cash: Int!
-    bid: String!
 }
 
 input userQuery {
@@ -57,4 +56,18 @@ input userQuery {
 
 input bidQueryMany {
     username: String!
+}
+
+input cashInput {
+    user: String!
+    money: Int!
+}
+
+input bidInput {
+    id: ID!
+    gameID: ID!
+    user: ID!
+    bidFor: String!
+    bidMoney: Int!
+    result: Int
 }
