@@ -8,7 +8,7 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 
-export default function TimePicker() {
+export default function TimePickers() {
   const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
 
   const handleChange = (newValue) => {
