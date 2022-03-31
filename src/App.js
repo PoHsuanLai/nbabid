@@ -77,7 +77,7 @@ function App() {
           <PersistentDrawerLeft open={openDrawer}  handleDrawerClose={handleDrawerClose} username={user} cash={cash} handleOpenHistory={handleOpenHistory} handleHome={handleHome}/>
           <SignUpModal open={openSignUp} handleCloseSignUp={handleCloseSignUp} handleCancel={handleCancelSignUp} stateRef={stateRef}/>
           <SignInModal open={openSignIn} handleClose={handleCloseSignIn} handleCancel={handleCancelSignIn} stateRef={stateRef}/>
-          <Background games={result.data} signIn={signIn} user={signIn?user:null} openHistory={openHistory} />
+          <Background games={result.data} signIn={signIn} user={user} openHistory={openHistory} />
     </div>
   );
 }

@@ -56,6 +56,7 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
       setFormData(initialData)
       setUser(formData.username)
       setCash(100000)
+      handleCloseSignUp()
   }
 
   const handleCreate=async()=>{
@@ -71,8 +72,6 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
         console.log(data)
         return
     }catch(e){
-      console.log(typeof(e))
-      console.log(e)
       console.log(typeof(e.toString()))
       console.log(e.toString())
       if(e.toString()==='Error: cant find username!'){

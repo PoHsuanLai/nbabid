@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { CREATE_BID_MUTATION } from '../graphql';
+import {v4 as uuidv4} from 'uuid'
 
 const price = 'price'
 
@@ -11,11 +12,10 @@ const initialData = {
 
 export default function Bid(props){
 
-  const {open, handleClose, username, team, date} = props 
+  const {open, handleClose, username, team, gameid} = props 
 
   const [formData, setFormData] = useState(initialData);
   const [displayError, setDisplayError] = useState(false);
-  const [newprice, setNewPrice] = useState(0)
 
   const handleChangeFormData = (key, value) => {
     setDisplayError(false)
@@ -37,9 +37,15 @@ export default function Bid(props){
     // console.log(newprice)
     createBid({
         variables: {
-            name: username,
-            bid: date+'-'+team+'-'+parseInt(formData['price']),
-            price: parseInt(formData['price'])
+            // name: username,
+            // bid: date+'-'+team+'-'+parseInt(formData['price']),
+            // price: parseInt(formData['price'])
+            id: uuidv4(),
+            gameID: gameid,
+            user: username,
+            bidFor: team,
+            bidMoney: formData.price,
+            result: null,
             },onCompleted: ()=>{handleClose()}
         }
     )

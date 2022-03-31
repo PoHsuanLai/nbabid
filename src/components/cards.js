@@ -41,7 +41,7 @@ const teamPics={
 }
 
 export default function Cards(props){
-    const {top, topScore, bot, botScore, date, bid} = props
+    const {top, topScore, bot, botScore, gameid, bid} = props
 
         return(
         <Card sx={{ maxWidth: 450, display: 'flex', ml: 10, mt: 2, mb:2}}>
@@ -50,7 +50,7 @@ export default function Cards(props){
                     <CardMedia component='img' height='90' src={teamPics[`${top}`]} sx={{width: 90, mt: 3, ml: 3,mr: 1}}/>
                     {   topScore===null?
                         <CardActions sx={{ml:5}}>
-                            <Button size='large' onClick={()=>bid({team: 'top', date: `${date[0]}-${date[1]}-${date[2]}`})}>
+                            <Button size='large' onClick={()=>bid({team: 'top', gameid: gameid})}>
                                 <Typography sx={{fontSize:20}}>
                                     BID
                                 </Typography>
@@ -76,7 +76,7 @@ export default function Cards(props){
                     <CardMedia component='img' height='90' src={teamPics[`${bot}`]} sx={{width: 90, mt: 3, mr: 3, ml:1, right:0.2}}/>
                     {topScore===null?
                         <CardActions sx={{mr: 5}}>
-                            <Button size='large' onClick={()=>bid({team: 'bot', date: `${date[0]}-${date[1]}-${date[2]}`})}>
+                            <Button size='large' onClick={()=>bid({team: 'bot', gameid: gameid})}>
                                 <Typography sx={{fontSize:20}}>
                                     BID
                                 </Typography>
