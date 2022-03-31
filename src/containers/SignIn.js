@@ -54,7 +54,7 @@ function SignIn(props){
       await load()
       setUserName(data.username)
       setSignIn(true)
-      handleClose
+      handleClose()
     }catch(e){
       alert(e)
     }

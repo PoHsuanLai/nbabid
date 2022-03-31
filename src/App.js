@@ -14,7 +14,6 @@ function App() {
   const [openSignUp, setOpenSignUp] = useState(false)
   const [show, setShow] = useState(false)
   const stateRef = useRef({username: null, signIn: false})
-  const [load, { loading, data }] = useLazyQuery( GET_USERS_QUERY, {variables: {input: {username: stateRef.current.username, password: stateRef.current.password}}})
   const result = useQuery( GET_GAMES_QUERY )
 
   const handleLogIn = () => {
@@ -52,10 +51,10 @@ function App() {
           <CssBaseline />
           <div style={{ backgroundColor: "#f5f5f5", height: "500vh" }}>
           <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleShow={openShow}/>
-          {(signIn||stateRef.signIn)&&show?<MyList username={data.users.username} cash={data.users.cash}></MyList>:<></>}
+          {/* {(signIn||stateRef.signIn)&&show?<MyList username={data.users.username} cash={data.users.cash}></MyList>:<></>} */}
           <SignUpModal open={openSignUp} handleCloseSignUp={handleCloseSignUp} />
           <SignInModal open={openSignIn} handleClose={handleClose} stateRef={stateRef}/>
-          <Background games={result.data} signIn={signIn} user={signIn?data.users.username:null}/>
+          <Background games={result.data} signIn={signIn} user={signIn?stateRef.username:null}/>
           
           </div>
     </div>
