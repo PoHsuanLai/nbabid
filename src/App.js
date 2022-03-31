@@ -6,7 +6,6 @@ import { useLazyQuery, useQuery } from '@apollo/client';
 import {GET_GAMES_QUERY, GET_USERS_QUERY} from './graphql'
 import SignUpModal from './containers/SignUp'
 import Background from "./components/background";
-import MyList from "./components/List";
 
 function App() {
   const [signIn, setSignIn] = useState(false)
@@ -22,7 +21,7 @@ function App() {
 
   const handleClose = () => {
     setOpenSignIn(false);
-    console.log(signIn)
+    console.log(stateRef.signIn)
   }
 
   const openShow =  () => {
@@ -50,8 +49,7 @@ function App() {
     <div>
           <CssBaseline />
           <div style={{ backgroundColor: "#f5f5f5", height: "500vh" }}>
-          <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleShow={openShow}/>
-          {/* {(signIn||stateRef.signIn)&&show?<MyList username={data.users.username} cash={data.users.cash}></MyList>:<></>} */}
+          <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={(signIn||stateRef.signIn)} handleShow={openShow}/>
           <SignUpModal open={openSignUp} handleCloseSignUp={handleCloseSignUp} />
           <SignInModal open={openSignIn} handleClose={handleClose} stateRef={stateRef}/>
           <Background games={result.data} signIn={signIn} user={signIn?stateRef.username:null}/>
