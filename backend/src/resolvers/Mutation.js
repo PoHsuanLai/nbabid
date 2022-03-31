@@ -10,11 +10,6 @@ const Mutation = {
     updateCash: async(parent, { input }, { db, pubsub }) => {
         let {user, money} = input
         const username = db.userModel.findOne(user)
-        // function calculate(bidFor, gameResult, bidMoney){
-        //     const Winteam = gameResult.topScore>gameResult.botScore?top:bot
-        //     return bidFor===Winteam?2*bidMoney:0
-        // }
-        // let returnValue = calculate(bidFor, gameResult, bidMoney)
         const id = username.id
         const find = await db.userModel.findOneAndUpdate(
             {id},

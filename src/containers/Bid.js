@@ -32,6 +32,10 @@ export default function Bid(props){
         setDisplayError(true)
         return
     }
+    console.log(gameid)
+    console.log(username)
+    console.log(team)
+    console.log(formData.price)
     createBid({
         variables: {
             id: uuidv4(),
