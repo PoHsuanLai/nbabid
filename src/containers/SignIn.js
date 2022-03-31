@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, TextField, IconButton } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, TextField, IconButton, Typography } from '@mui/material';
 import { GET_USERS_QUERY } from '../graphql';
 import { useLazyQuery } from '@apollo/client';
 
@@ -23,6 +23,8 @@ function SignIn(props){
     {variables: {input: {username: formData.username, password: formData.password}}})
   const [userName, setUserName] = useState(null)
   const [cash, setCash] = useState(null)
+  const [invalidUser, setInvalidUser] = useState(false)
+  const [invalidPassword, setInvalidPasswoed] = useState(false)
 
   const handleChangeFormData = (key, value) => {
     setDisplayError(false)
@@ -57,7 +59,12 @@ function SignIn(props){
       setCash(data.cash)
       handleClose()
     }catch(e){
-      alert(e)
+      if(e==='cant find username!'){
+        setInvalidUser(true)
+      }
+      else if(e==='wrong password!'){
+        setInvalidPasswoed(true)
+      }
     }
   }
 
@@ -70,6 +77,7 @@ function SignIn(props){
             autoFocus
             margin = 'dense'
             label = 'Username'
+            helperText='User Name does not Exist!'
             fullWidth
             variant='standard'
             value={formData[username]}
@@ -78,6 +86,8 @@ function SignIn(props){
             <TextField
             margin = 'dense'
             label = 'Password'
+            error={invalidPassword}
+            helperText='Wrong Password!'
             fullWidth
             variant='standard'
             type={showPassword?'text':'password'}

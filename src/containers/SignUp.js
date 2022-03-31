@@ -59,12 +59,10 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
   }
 
   const handleCreate=async()=>{
-    console.log('1')
     if(Object.values(formData).some((v)=>!v)){
         setDisplayError(true)
         return
     }
-    console.log('2')
     try{
       await load()
         console.log(data)
@@ -73,7 +71,7 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
         console.log(data)
         return
     }catch(e){
-      console.log(e)
+      console.log(typeof(e))
       if(e==='cant find username!'){
         console.log('new user')
         const newpassword = await hashPassword(formData.password, saltRounds)
