@@ -5,6 +5,10 @@ import Button from '@mui/material/Button';
 import Bid from '../containers/Bid'
 import TimePickers from './TimePickers';
 import { styled } from '@mui/material/styles';
+import { GET_BIDS_QUERY } from '../graphql';
+import { useLazyQuery } from '@apollo/client';
+import BidCard from './bidCard';
+import Typography from '@mui/material/Typography';
 
 const drawerWidth = 240;
 const month = ['01','02','03','04','05','06','07','08','09','10','11','12']
@@ -18,7 +22,10 @@ export default function Background(props){
     const [render, setRender] = React.useState(null)
     const [openBid, setOpenBid] = React.useState(false)
     const [position, setPosition] = React.useState({})
+    const [openHistory, setOpenHistory] = React.useState(false)
     const [date, setDate] = React.useState(new Date())
+    const [renderHistory, setRenderHistory] = React.useState(<></>)
+    const [load, {called, loading, data}] = useLazyQuery(GET_BIDS_QUERY, {variables: {input: {username: user}}})
     const stateRef = React.useRef(new Date())
 
     const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -69,10 +76,24 @@ export default function Background(props){
             return <Cards top={e.top} topScore={e.topScore} bot={e.bot} botScore={e.botScore} date={handleDate(e.date)} bid={bid} />
         }))
     }
-    const handleClose=()=>{
+    const handleClose = () => {
         setOpenBid(false)
     }
-
+    const handleOpenHistory = async () => {
+        if(!openHistory){
+            return <></>
+        }
+        else {
+            try{
+                await load
+                setRenderHistory(data.map((e)=>{
+                    return <BidCard index={e}></BidCard>
+                }))
+            }catch(e){
+                setRenderHistory(<Typography variant="h5" component="div">There is No Bid Yet!</Typography>)
+            }
+        }
+    }
 
     return(
         <Main>
@@ -87,6 +108,7 @@ export default function Background(props){
             </>
         </Container>
         <Bid open={openBid} handleClose={handleClose} username={user} team={position.team} date={position.date}/>
+
         </Main>
     )
 }

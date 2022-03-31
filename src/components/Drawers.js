@@ -26,8 +26,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft(props) {
 
-  const {open, handleDrawerClose, username, cash} = props
+  const {open, handleDrawerClose, username, cash, handleOpenHistory} = props
   const theme = useTheme();
+  
+  const handleHistory = () => {
+    handleOpenHistory()
+    handleDrawerClose
+  }
 
   return (
       <Drawer
@@ -65,7 +70,7 @@ export default function PersistentDrawerLeft(props) {
         </List>
         <Divider />
         <List>
-          <ListItem button key={'Bid History'}>
+          <ListItem button key={'Bid History'} onClick={handleHistory}>
               <ListItemIcon>
                 <MoneyIcon/>
               </ListItemIcon>

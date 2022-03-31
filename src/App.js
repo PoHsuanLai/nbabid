@@ -17,6 +17,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [openDrawer, setOpenDrawer] = useState(false)
   const [cash, setCash] = useState(null)
+  const [openHistory, setOpenHistory] = useState(false)
   
 
   const handleLogIn = () => {
@@ -61,17 +62,18 @@ function App() {
     setOpenSignUp(false)
   }
 
+  const handleOpenHistory = () => {
+    setOpenHistory(true)
+  }
 
   return (
     <div>
           <CssBaseline />
-          <div style={{ backgroundColor: "#f5f5f5", height: "500vh" }}>
-          <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleDrawerOpen={handleDrawerOpen}/>
-          <PersistentDrawerLeft open={openDrawer}  handleDrawerClose={handleDrawerClose} username={user} cash={cash}/>
+          <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleDrawerOpen={handleDrawerOpen} />
+          <PersistentDrawerLeft open={openDrawer}  handleDrawerClose={handleDrawerClose} username={user} cash={cash} handleOpenHistory={handleOpenHistory}/>
           <SignUpModal open={openSignUp} handleCloseSignUp={handleCloseSignUp} handleCancel={handleCancelSignUp} stateRef={stateRef}/>
           <SignInModal open={openSignIn} handleClose={handleCloseSignIn} handleCancel={handleCancelSignIn} stateRef={stateRef}/>
-          <Background games={result.data} signIn={signIn} user={signIn?user:null}/>
-          </div>
+          <Background games={result.data} signIn={signIn} user={signIn?user:null} openHistory={openHistory}/>
     </div>
   );
 }

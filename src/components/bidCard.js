@@ -1,11 +1,10 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Box } from '@mui/system';
+import { GET_GAMES_QUERY } from '../graphql';
+import { useQuery } from '@apollo/client';
 
 const teamPics={
     MIL: 'https://ssl.gstatic.com/onebox/media/sports/logos/Wd6xIEIXpfqg9EZC6PAepQ_96x96.png',
@@ -40,52 +39,27 @@ const teamPics={
     UTAH: 'https://ssl.gstatic.com/onebox/media/sports/logos/SP_dsmXEKFVZH5N1DQpZ4A_96x96.png',
 }
 
-export default function Cards(props){
-    const {top, topScore, bot, botScore, date, bid} = props
+export default function BidCard(props) {
 
-        return(
-        <Card sx={{ maxWidth: 450, display: 'flex', ml: 10, mt: 2, mb:2}}>
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                    <CardMedia component='img' height='90' src={teamPics[`${top}`]} sx={{width: 90, mt: 3, ml: 3,mr: 1}}/>
-                    {   topScore===null?
-                        <CardActions sx={{ml:5}}>
-                            <Button size='large' onClick={()=>bid({team: 'top', date: `${date[0]}-${date[1]}-${date[2]}`})}>
-                                <Typography sx={{fontSize:20}}>
-                                    BID
-                                </Typography>
-                            </Button>
-                        </CardActions>:
-                        <></>
-                    }
-                </Box>
+    const {index} = props
+    const [loading, erro, data] = useQuery(GET_GAMES_QUERY, {variables: {input: {id: index.gameID}}})
 
-                <CardContent sx={{color: 'text.primary',  mt:4}}>
-                    <Typography variant='h5' sx={{fontSize: 37, fontWeight:800}}>{topScore} </Typography>
-                </CardContent>
-
-                <CardContent sx={{ display: 'flex', flexDirection: 'column'}}>
-                    <Typography variant='subtitle1' color='text.secondary' component='div' sx={{mt: 5}}>{date[1]}/{date[2]}</Typography>
-                    <Typography variant='subtitle1' color='text.secondary' component='div' sx={{mt: 6.5}}>vs</Typography>
-                </CardContent>
-
-                <CardContent sx={{color: 'text.primary', fontWeight: 800, mt:4}}>
-                <Typography variant='h5' sx={{fontSize: 37, fontWeight:800}}>{botScore} </Typography>
-                </CardContent>
-                 <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                    <CardMedia component='img' height='90' src={teamPics[`${bot}`]} sx={{width: 90, mt: 3, mr: 3, ml:1, right:0.2}}/>
-                    {topScore===null?
-                        <CardActions sx={{mr: 5}}>
-                            <Button size='large' onClick={()=>bid({team: 'bot', date: `${date[0]}-${date[1]}-${date[2]}`})}>
-                                <Typography sx={{fontSize:20}}>
-                                    BID
-                                </Typography>
-                            </Button>
-                        </CardActions>:
-                        <></>
-                    }
-                </Box>
-            </Box>
-        </Card>
-    )
+  return (
+    <Card sx={{ maxWidth: 450 }}>
+      <CardMedia
+        component="img"
+        alt="Team Picture"
+        height="140"
+        image={teamPics[`${index.bidFor}`]}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {index.result!==null?`Result: You ${index.result>=0?'Earned':'Lost'} ${index.result>=0?index.result:-index.result}`:`You Bet ${input.bidMoney} On ${props.bidFor}!`}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          game date: {data.date}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
 }

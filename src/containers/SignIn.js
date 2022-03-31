@@ -52,6 +52,7 @@ function SignIn(props){
   const checkUser = async () => {
     try{
       await load()
+      if(called&&loading){console.log('loading')}
       setUserName(data.username)
       setCash(data.cash)
       handleClose()
