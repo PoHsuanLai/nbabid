@@ -30,7 +30,7 @@ const Mutation = {
         }
         return find
     },
-    createBid: async(parent, { name, bid, price }, {db, pubsub}) => {
+    createBid: async(parent, { input }, { db, pubsub }) => {
         const newBid = new db.bids(input)
         await newBid.save()
         pubsub.publish("BID_CREATED",{

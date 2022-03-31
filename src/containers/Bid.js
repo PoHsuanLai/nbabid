@@ -32,21 +32,15 @@ export default function Bid(props){
         setDisplayError(true)
         return
     }
-
-    // console.log(formData['price'])
-    // console.log(newprice)
     createBid({
         variables: {
-            // name: username,
-            // bid: date+'-'+team+'-'+parseInt(formData['price']),
-            // price: parseInt(formData['price'])
             id: uuidv4(),
             gameID: gameid,
             user: username,
             bidFor: team,
             bidMoney: formData.price,
             result: null,
-            },onCompleted: ()=>{handleClose()}
+            },onCompleted: ()=>{handleClosePage()}
         }
     )
   }

@@ -19,7 +19,7 @@ const year = (input) => {
 
 export default function Background(props){
     
-    const {games, signIn, user, openHistory} = props
+    const {games, user, openHistory} = props
     const [render, setRender] = React.useState(null)
     const [openBid, setOpenBid] = React.useState(false)
     const [position, setPosition] = React.useState({})
@@ -55,7 +55,7 @@ export default function Background(props){
     }
 
     const bid = (position) => {
-        if(!signIn) {
+        if(user===null) {
             alert('Please Sign In First!')
             return
         }
@@ -94,7 +94,12 @@ export default function Background(props){
                     return <BidCard index={e}></BidCard>
                 }))
             }catch(e){
-                setRenderHistory(<Typography variant="h5" component="div">There is No Bid Yet!</Typography>)
+                setRenderHistory(
+                    <>
+                        <br></br>
+                        <Typography variant="h5" component="div">There is No Bid Yet!</Typography>
+                    </>    
+                        )
             }
         }
     }
