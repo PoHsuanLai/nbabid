@@ -13,7 +13,7 @@ const initialData = {
 
 function SignIn(props){
 
-  const {open, handleClose, stateRef} = props 
+  const {open, handleClose, handleCancel,  stateRef} = props 
 
   const [formData, setFormData] = useState(initialData);
   const [displayError, setDisplayError] = useState(false);
@@ -22,7 +22,6 @@ function SignIn(props){
     GET_USERS_QUERY, 
     {variables: {input: {username: formData.username, password: formData.password}}})
   const [userName, setUserName] = useState(null)
-  const [signIn, setSignIn] = useState(false)
 
   const handleChangeFormData = (key, value) => {
     setDisplayError(false)
@@ -33,12 +32,12 @@ function SignIn(props){
   }
 
   useEffect(()=>{
-    stateRef.current = {userName, signIn}
+    stateRef.current = {userName}
     })
 
   const handleClosePage = () => {
       setFormData(initialData)
-      handleClose()
+      handleCancel()
   }
 
   const handleClickShowPassword = () => {
@@ -53,7 +52,6 @@ function SignIn(props){
     try{
       await load()
       setUserName(data.username)
-      setSignIn(true)
       handleClose()
     }catch(e){
       alert(e)

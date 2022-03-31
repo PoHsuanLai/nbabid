@@ -12,16 +12,18 @@ function App() {
   const [openSignIn, setOpenSignIn] = useState(false)
   const [openSignUp, setOpenSignUp] = useState(false)
   const [show, setShow] = useState(false)
-  const stateRef = useRef({username: null, signIn: false})
+  const stateRef = useRef({username: null})
   const result = useQuery( GET_GAMES_QUERY )
+  const [user, setUser] = useState(null)
 
   const handleLogIn = () => {
     setOpenSignIn(true);
   }
 
-  const handleClose = () => {
+  const handleCloseSignIn = () => {
     setOpenSignIn(false);
-    console.log(stateRef.signIn)
+    setSignIn(true)
+    setUser(stateRef.username)
   }
 
   const openShow =  () => {
@@ -38,10 +40,21 @@ function App() {
 
   const handleCloseSignUp = () => {
     setOpenSignUp(false)
+    setSignIn(true)
+    setUser(stateRef.username)
   }
 
   const handleLogOut = () => {
     setSignIn(false)
+    setUser(null)
+  }
+
+  const handleCancelSignIn = () => {
+    setOpenSignIn(false)
+  }
+
+  const handleCancelSignUp = () => {
+    setOpenSignUp(false)
   }
 
 
@@ -49,11 +62,10 @@ function App() {
     <div>
           <CssBaseline />
           <div style={{ backgroundColor: "#f5f5f5", height: "500vh" }}>
-          <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={(signIn||stateRef.signIn)} handleShow={openShow}/>
-          <SignUpModal open={openSignUp} handleCloseSignUp={handleCloseSignUp} />
-          <SignInModal open={openSignIn} handleClose={handleClose} stateRef={stateRef}/>
-          <Background games={result.data} signIn={signIn} user={signIn?stateRef.username:null}/>
-          
+          <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleShow={openShow}/>
+          <SignUpModal open={openSignUp} handleCloseSignUp={handleCloseSignUp} handleCancel={handleCancelSignUp} stateRef={stateRef}/>
+          <SignInModal open={openSignIn} handleClose={handleCloseSignIn} handleCancel={handleCancelSignIn} stateRef={stateRef}/>
+          <Background games={result.data} signIn={signIn} user={signIn?user:null}/>
           </div>
     </div>
   );

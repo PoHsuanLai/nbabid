@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_USERS_MUTATION } from '../graphql';
 import { GET_USERS_QUERY } from '../graphql';
 import bcrypt from 'bcryptjs'
 import {v4 as uuidv4} from 'uuid'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, TextField, IconButton } from '@mui/material';
+import { useLazyQuery } from '@apollo/client';
 
 const saltRounds = 10
 
@@ -16,11 +17,15 @@ const initialData = {
     [password]: '',
 }
 
-function SignUp( {open, handleCloseSignUp} ){
+function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
 
   const [formData, setFormData] = useState(initialData);
   const [displayError, setDisplayError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [user, setUser] = useState(null)
+  const [load, { called,loading, data }] = useLazyQuery( 
+    GET_USERS_QUERY, 
+    {variables: {input: {username: formData.username, password: formData.password}}})
 
   const handleChangeFormData = (key, value) => {
     setDisplayError(false)
@@ -29,6 +34,10 @@ function SignUp( {open, handleCloseSignUp} ){
       [key]: value
     })
   }
+
+  useEffect(()=>{
+    stateRef.current = {user}
+  })
 
   const [createUser] = useMutation(CREATE_USERS_MUTATION)
 
@@ -39,7 +48,12 @@ function SignUp( {open, handleCloseSignUp} ){
 
   const handleClose = () => {
       setFormData(initialData)
-      handleCloseSignUp()
+      handleCancel()
+  }
+
+  const handleSuccess = () => {
+      setFormData(initialData)
+      setUser(formData.username)
   }
 
   const handleCreate=async()=>{
@@ -47,22 +61,36 @@ function SignUp( {open, handleCloseSignUp} ){
         setDisplayError(true)
         return
     }
-    const newpassword = await hashPassword(formData.password, saltRounds)
-    createUser({
+    try{
+      await load
+        alert(`username ${data.username} already exists!`)
+        setFormData(initialData)
+        return
+    }catch(e){
+      if(e==='cant find username!'){
+        const newpassword = await hashPassword(formData.password, saltRounds)
+        createUser({
         variables: {
             input: {
             id: uuidv4(),
             username: formData.username,
             password: newpassword,
-            cash: 10000,
-            bid: '',
+            cash: 100000,
             },
         },
-    refetchQueries: [GET_USERS_QUERY],
-    onCompleted: () => {
-        handleClose()
-    },
-  })
+        onCompleted: () => {
+          handleSuccess()
+          },
+        })
+      }
+      else if(e==='wrong password!'){
+        alert(`username ${formData.username} already exists!`)
+        setFormData(initialData)
+        return
+      }
+    }
+
+    
 }
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
