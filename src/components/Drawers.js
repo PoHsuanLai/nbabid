@@ -107,7 +107,7 @@ export default function PersistentDrawerLeft(props) {
             </DrawerHeader>
             <Divider />
             <br></br>
-            <Typography>&nbsp You Havn't Login Yet!</Typography>
+            <Typography>{'\u00A0'} You Havn't Login Yet!</Typography>
         </Drawer>
           }
       </>

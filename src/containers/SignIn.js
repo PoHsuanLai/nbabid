@@ -77,7 +77,7 @@ function SignIn(props){
             autoFocus
             margin = 'dense'
             label = 'Username'
-            helperText='User Name does not Exist!'
+            helperText={invalidUser?'User Name does not Exist!':''}
             fullWidth
             variant='standard'
             value={formData[username]}
@@ -87,7 +87,7 @@ function SignIn(props){
             margin = 'dense'
             label = 'Password'
             error={invalidPassword}
-            helperText='Wrong Password!'
+            helperText={invalidPassword?'Wrong Password!':''}
             fullWidth
             variant='standard'
             type={showPassword?'text':'password'}
