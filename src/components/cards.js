@@ -41,7 +41,7 @@ const teamPics={
 }
 
 export default function Cards(props){
-    const {top, topScore, bot, botScore, gameid, bid} = props
+    const {top, topScore, bot, botScore, date, bid, gameid} = props
 
         return(
         <Card sx={{ maxWidth: 450, display: 'flex', ml: 10, mt: 2, mb:2}}>

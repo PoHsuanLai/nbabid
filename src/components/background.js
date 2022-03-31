@@ -47,6 +47,12 @@ export default function Background(props){
         }),
       );
       
+    const handleDate = (date) => {
+        let dateChar = date.split('')
+        let newDate=[parseInt(`${dateChar[0]}${dateChar[1]}${dateChar[2]}${dateChar[3]}`),
+                    parseInt(`${dateChar[5]}${dateChar[6]}`), parseInt(`${dateChar[8]}${dateChar[9]}`)]
+        return (newDate)
+    }
 
     const bid = (position) => {
         if(!signIn) {
@@ -54,7 +60,7 @@ export default function Background(props){
             return
         }
         setOpenBid(true)
-        setPosition({team: position.team, gameid: position.gameid})
+        setPosition({team: position.team, gameid: position.id})
     }
 
     const handleClick= ()=> {
@@ -70,7 +76,7 @@ export default function Background(props){
                 currentGames.push(games.games[i])}
         }
         setRender(currentGames.map((e)=>{
-            return <Cards top={e.top} topScore={e.topScore} bot={e.bot} botScore={e.botScore} gameid={e.id} bid={bid} />
+            return <Cards top={e.top} topScore={e.topScore} bot={e.bot} botScore={e.botScore} date={handleDate(e.date)} bid={bid} gameid={e.id}/>
         }))
         handleOpenHistory()
     }
