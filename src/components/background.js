@@ -102,7 +102,7 @@ export default function Background(props){
         <Container maxwidth='sm'>
             {openHistory?
             <>
-                <Button variant="outlined" startIcon={<RefreshIcon/>} onClick={()=>{handleOpenHistory}}> 
+                <Button variant="outlined" startIcon={<RefreshIcon/>} onClick={()=>{handleOpenHistory()}}> 
                     Refresh
                 </Button>
                 {renderHistory}
