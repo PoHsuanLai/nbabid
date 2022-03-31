@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import MenuIcon from '@mui/icons-material/Menu'
 import { styled } from '@mui/material/styles';
+import MuiAppBar from '@mui/material/AppBar';
 
 const drawerWidth = 240
 
