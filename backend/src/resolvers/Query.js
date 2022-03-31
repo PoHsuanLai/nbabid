@@ -8,7 +8,7 @@ const Query = {
         if(correct){
             return users
         }
-        else throw 'wrong password!'
+        else throw new Error('wrong password!')
     },
     games: async (parent, args, {db}, info)=>{
         const games = await db.games.find()

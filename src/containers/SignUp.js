@@ -75,7 +75,7 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
       console.log(e)
       console.log(typeof(e.toString()))
       console.log(e.toString())
-      if(e.toString()==='cant find username!'){
+      if(e.toString()==='Error: cant find username!'){
         console.log('new user')
         const newpassword = await hashPassword(formData.password, saltRounds)
         createUser({
@@ -92,7 +92,7 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
           },
         })
       }
-      else if(e.toString()==='wrong password!'){
+      else if(e.toString()==='Error: wrong password!'){
         alert(`username ${formData.username} already exists!`)
         setFormData(initialData)
         return

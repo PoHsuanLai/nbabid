@@ -59,10 +59,10 @@ function SignIn(props){
       setCash(data.cash)
       handleClose()
     }catch(e){
-      if(e==='cant find username!'){
+      if(e.toString()==='Error: cant find username!'){
         setInvalidUser(true)
       }
-      else if(e==='wrong password!'){
+      else if(e.toString()==='Error: wrong password!'){
         setInvalidPasswoed(true)
       }
     }
