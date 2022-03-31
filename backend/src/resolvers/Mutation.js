@@ -15,12 +15,12 @@ const Mutation = {
         //     return bidFor===Winteam?2*bidMoney:0
         // }
         // let returnValue = calculate(bidFor, gameResult, bidMoney)
-        const id = username[id]
+        const id = username.id
         const find = await db.userModel.findOneAndUpdate(
             {id},
             {
                 $set: {
-                    cash: username[cash]+money
+                    cash: username.cash+money
                 }
             },
             {returnDocument: 'after'}

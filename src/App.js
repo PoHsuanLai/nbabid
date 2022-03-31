@@ -13,7 +13,7 @@ function App() {
   const [openSignIn, setOpenSignIn] = useState(false)
   const [openSignUp, setOpenSignUp] = useState(false)
   const [show, setShow] = useState(false)
-  const stateRef = useRef({})
+  const stateRef = useRef({username: null, signIn: false})
   const [load, { loading, data }] = useLazyQuery( GET_USERS_QUERY, {variables: {input: {username: stateRef.current.username, password: stateRef.current.password}}})
   const result = useQuery( GET_GAMES_QUERY )
 
@@ -27,7 +27,7 @@ function App() {
   }
 
   const openShow =  () => {
-    if(signIn){ 
+    if(stateRef.signIn){ 
       show?setShow(false):setShow(true)
     }
     else alert('Please Sign In First!')
@@ -46,24 +46,15 @@ function App() {
     setSignIn(false)
   }
 
-  const handleSignIn = async () => {
-    try{
-      await load()
-      handleClose()
-      setSignIn(true)
-    }catch(e){
-      alert(e)
-    }
-  }
 
   return (
     <div>
           <CssBaseline />
           <div style={{ backgroundColor: "#f5f5f5", height: "500vh" }}>
           <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleShow={openShow}/>
-          {signIn&&show?<MyList username={data.users.username} cash={data.users.cash}></MyList>:<></>}
+          {(signIn||stateRef.signIn)&&show?<MyList username={data.users.username} cash={data.users.cash}></MyList>:<></>}
           <SignUpModal open={openSignUp} handleCloseSignUp={handleCloseSignUp} />
-          <SignInModal open={openSignIn} handleClose={handleClose} handleSignIn={handleSignIn} stateRef={stateRef}/>
+          <SignInModal open={openSignIn} handleClose={handleClose} stateRef={stateRef}/>
           <Background games={result.data} signIn={signIn} user={signIn?data.users.username:null}/>
           
           </div>

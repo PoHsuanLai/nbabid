@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, TextField, IconButton } from '@mui/material';
+import { GET_USERS_QUERY } from '../graphql';
+import { useLazyQuery } from '@apollo/client';
 
 const username = 'username'
 const password = 'password'
@@ -11,11 +13,16 @@ const initialData = {
 
 function SignIn(props){
 
-  const {open, handleClose, handleSignIn, stateRef} = props 
+  const {open, handleClose, stateRef} = props 
 
   const [formData, setFormData] = useState(initialData);
   const [displayError, setDisplayError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [load, { called,loading, data }] = useLazyQuery( 
+    GET_USERS_QUERY, 
+    {variables: {input: {username: formData.username, password: formData.password}}})
+  const [userName, setUserName] = useState(null)
+  const [signIn, setSignIn] = useState(false)
 
   const handleChangeFormData = (key, value) => {
     setDisplayError(false)
@@ -26,7 +33,7 @@ function SignIn(props){
   }
 
   useEffect(()=>{
-    stateRef.current = formData
+    stateRef.current = {userName, signIn}
     })
 
   const handleClosePage = () => {
@@ -42,6 +49,16 @@ function SignIn(props){
     event.preventDefault();
   };
 
+  const checkUser = async () => {
+    try{
+      await load()
+      setUserName(data.username)
+      setSignIn(true)
+      handleClose
+    }catch(e){
+      alert(e)
+    }
+  }
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
@@ -78,7 +95,7 @@ function SignIn(props){
         </DialogContent>
         <DialogActions>
             <Button onClick={handleClosePage}>Cancel</Button>
-            <Button onClick={handleSignIn}>Log In</Button>
+            <Button onClick={checkUser}>Log In</Button>
         </DialogActions>
     </Dialog>
   );
