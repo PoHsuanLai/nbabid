@@ -12,6 +12,8 @@ import ListItemText from '@mui/material/ListItemText';
 import MoneyIcon from '@mui/icons-material/Money';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import HomeIcon from '@mui/icons-material/Home';
+import { Typography } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -26,7 +28,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft(props) {
 
-  const {open, handleDrawerClose, username, cash, handleOpenHistory} = props
+  const {open, handleDrawerClose, username, cash, handleOpenHistory, handleHome} = props
   const theme = useTheme();
   
   const handleHistory = () => {
@@ -35,7 +37,9 @@ export default function PersistentDrawerLeft(props) {
   }
 
   return (
-      <Drawer
+    <>
+      {username!==null?
+        <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -76,7 +80,14 @@ export default function PersistentDrawerLeft(props) {
               </ListItemIcon>
               <ListItemText primary={'Bid History'}/>
           </ListItem>
+          <ListItem button key={'Home'} onClick={handleHome}>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Home'}/>
+          </ListItem>
         </List>
-      </Drawer>
+      </Drawer>:<Typography>You Havn't Login Yet!</Typography>}
+      </>
   );
 }

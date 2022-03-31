@@ -9,6 +9,7 @@ import { GET_BIDS_QUERY } from '../graphql';
 import { useLazyQuery } from '@apollo/client';
 import BidCard from './bidCard';
 import Typography from '@mui/material/Typography';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const drawerWidth = 240;
 const month = ['01','02','03','04','05','06','07','08','09','10','11','12']
@@ -75,6 +76,7 @@ export default function Background(props){
         setRender(currentGames.map((e)=>{
             return <Cards top={e.top} topScore={e.topScore} bot={e.bot} botScore={e.botScore} date={handleDate(e.date)} bid={bid} />
         }))
+        handleOpenHistory()
     }
     const handleClose = () => {
         setOpenBid(false)
@@ -98,6 +100,14 @@ export default function Background(props){
     return(
         <Main>
         <Container maxwidth='sm'>
+            {openHistory?
+            <>
+                <Button variant="outlined" startIcon={<RefreshIcon/>} onClick={()=>{handleOpenHistory}}> 
+                    Refresh
+                </Button>
+                {renderHistory}
+            </>
+            :
             <>
                 <>
                     <br></br>
@@ -105,10 +115,9 @@ export default function Background(props){
                     <Button variant="outlined" onClick={handleClick}>確定</Button>
                 </>
                 {render}    
-            </>
+            </>}
         </Container>
         <Bid open={openBid} handleClose={handleClose} username={user} team={position.team} date={position.date}/>
-
         </Main>
     )
 }
