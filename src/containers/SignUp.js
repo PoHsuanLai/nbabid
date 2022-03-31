@@ -66,7 +66,7 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
     }
     console.log('2')
     try{
-      await load
+      await load()
         console.log(data)
         alert(`username ${data.username} already exists!`)
         setFormData(initialData)
