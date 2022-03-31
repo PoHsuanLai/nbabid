@@ -4,7 +4,9 @@ import Cards from './cards';
 import Button from '@mui/material/Button';
 import Bid from '../containers/Bid'
 import TimePickers from './TimePickers';
+import { styled } from '@mui/material/styles';
 
+const drawerWidth = 240;
 const month = ['01','02','03','04','05','06','07','08','09','10','11','12']
 const year = (input) => {
     return `${1900+input}`

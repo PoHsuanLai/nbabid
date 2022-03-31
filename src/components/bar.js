@@ -3,6 +3,9 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import MenuIcon from '@mui/icons-material/Menu'
+import { styled } from '@mui/material/styles';
+
+const drawerWidth = 240
 
 export default function Bar({handleLogIn,handleSignUp , handleLogOut, signIn, handleOpenDrawer}) {
 
