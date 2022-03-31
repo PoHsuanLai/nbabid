@@ -6,15 +6,17 @@ import { useLazyQuery, useQuery } from '@apollo/client';
 import {GET_GAMES_QUERY, GET_USERS_QUERY} from './graphql'
 import SignUpModal from './containers/SignUp'
 import Background from "./components/background";
+import PersistentDrawerLeft from "./components/Drawers";
 
 function App() {
   const [signIn, setSignIn] = useState(false)
   const [openSignIn, setOpenSignIn] = useState(false)
   const [openSignUp, setOpenSignUp] = useState(false)
-  const [show, setShow] = useState(false)
   const stateRef = useRef({username: null})
   const result = useQuery( GET_GAMES_QUERY )
   const [user, setUser] = useState(null)
+  const [openDrawer, setOpenDrawer] = useState(false)
+  
 
   const handleLogIn = () => {
     setOpenSignIn(true);
@@ -26,12 +28,12 @@ function App() {
     setUser(stateRef.username)
   }
 
-  const openShow =  () => {
-    if(stateRef.signIn){ 
-      show?setShow(false):setShow(true)
-    }
-    else alert('Please Sign In First!')
+  const handleDrawerOpen =  () => {
+    setOpenDrawer(true)
+  }
 
+  const handleDrawerClose = () => {
+    setOpenDrawer(false)
   }
 
   const handleOpenSignUp = () => {
@@ -62,7 +64,8 @@ function App() {
     <div>
           <CssBaseline />
           <div style={{ backgroundColor: "#f5f5f5", height: "500vh" }}>
-          <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleShow={openShow}/>
+          <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleShow={handleDrawerOpen}/>
+          <PersistentDrawerLeft open={openDrawer}  handleDrawerClose={handleDrawerClose} username={user}/>
           <SignUpModal open={openSignUp} handleCloseSignUp={handleCloseSignUp} handleCancel={handleCancelSignUp} stateRef={stateRef}/>
           <SignInModal open={openSignIn} handleClose={handleCloseSignIn} handleCancel={handleCancelSignIn} stateRef={stateRef}/>
           <Background games={result.data} signIn={signIn} user={signIn?user:null}/>

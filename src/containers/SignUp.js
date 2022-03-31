@@ -68,6 +68,7 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
         return
     }catch(e){
       if(e==='cant find username!'){
+        console.log('new user')
         const newpassword = await hashPassword(formData.password, saltRounds)
         createUser({
         variables: {
