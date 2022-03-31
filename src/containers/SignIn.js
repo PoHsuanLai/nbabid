@@ -22,6 +22,7 @@ function SignIn(props){
     GET_USERS_QUERY, 
     {variables: {input: {username: formData.username, password: formData.password}}})
   const [userName, setUserName] = useState(null)
+  const [cash, setCash] = useState(null)
 
   const handleChangeFormData = (key, value) => {
     setDisplayError(false)
@@ -32,7 +33,7 @@ function SignIn(props){
   }
 
   useEffect(()=>{
-    stateRef.current = {userName}
+    stateRef.current = {userName, cash}
     })
 
   const handleClosePage = () => {
@@ -52,6 +53,7 @@ function SignIn(props){
     try{
       await load()
       setUserName(data.username)
+      setCash(data.cash)
       handleClose()
     }catch(e){
       alert(e)

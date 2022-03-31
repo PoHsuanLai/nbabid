@@ -2,8 +2,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { useState, useRef } from "react";
 import Bar from './components/bar'
 import SignInModal from "./containers/SignIn";
-import { useLazyQuery, useQuery } from '@apollo/client';
-import {GET_GAMES_QUERY, GET_USERS_QUERY} from './graphql'
+import { useQuery } from '@apollo/client';
+import { GET_GAMES_QUERY } from './graphql'
 import SignUpModal from './containers/SignUp'
 import Background from "./components/background";
 import PersistentDrawerLeft from "./components/Drawers";
@@ -12,10 +12,11 @@ function App() {
   const [signIn, setSignIn] = useState(false)
   const [openSignIn, setOpenSignIn] = useState(false)
   const [openSignUp, setOpenSignUp] = useState(false)
-  const stateRef = useRef({username: null})
+  const stateRef = useRef({username: null, cash: null})
   const result = useQuery( GET_GAMES_QUERY )
   const [user, setUser] = useState(null)
   const [openDrawer, setOpenDrawer] = useState(false)
+  const [cash, setCash] = useState(null)
   
 
   const handleLogIn = () => {
@@ -29,6 +30,7 @@ function App() {
   }
 
   const handleDrawerOpen =  () => {
+    setCash(stateRef.cash)
     setOpenDrawer(true)
   }
 
@@ -64,8 +66,8 @@ function App() {
     <div>
           <CssBaseline />
           <div style={{ backgroundColor: "#f5f5f5", height: "500vh" }}>
-          <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleShow={handleDrawerOpen}/>
-          <PersistentDrawerLeft open={openDrawer}  handleDrawerClose={handleDrawerClose} username={user}/>
+          <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleDrawerOpen={handleDrawerOpen}/>
+          <PersistentDrawerLeft open={openDrawer}  handleDrawerClose={handleDrawerClose} username={user} cash={cash}/>
           <SignUpModal open={openSignUp} handleCloseSignUp={handleCloseSignUp} handleCancel={handleCancelSignUp} stateRef={stateRef}/>
           <SignInModal open={openSignIn} handleClose={handleCloseSignIn} handleCancel={handleCancelSignIn} stateRef={stateRef}/>
           <Background games={result.data} signIn={signIn} user={signIn?user:null}/>

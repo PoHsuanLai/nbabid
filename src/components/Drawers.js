@@ -9,8 +9,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import MoneyIcon from '@mui/icons-material/Money';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const drawerWidth = 240;
 
@@ -25,7 +26,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft(props) {
 
-  const {open, handleDrawerClose, username} = props
+  const {open, handleDrawerClose, username, cash} = props
   const theme = useTheme();
 
   return (
@@ -49,14 +50,27 @@ export default function PersistentDrawerLeft(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+            <ListItem button key={'User Name'}>
+                <ListItemIcon>
+                    <AccountCircleIcon />
+                </ListItemIcon>
+                <ListItemText primary={username}/>
             </ListItem>
-          ))}
+            <ListItem button key={'Cash'}>
+                <ListItemIcon>
+                    <AttachMoneyIcon />
+                </ListItemIcon>
+                <ListItemText primary={cash}/>
+            </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button key={'Bid History'}>
+              <ListItemIcon>
+                <MoneyIcon/>
+              </ListItemIcon>
+              <ListItemText primary={'Bid History'}/>
+          </ListItem>
         </List>
       </Drawer>
   );

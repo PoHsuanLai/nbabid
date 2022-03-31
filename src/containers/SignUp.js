@@ -23,6 +23,7 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
   const [displayError, setDisplayError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState(null)
+  const [cash, setCash] = useState(null)
   const [load, { called,loading, data }] = useLazyQuery( 
     GET_USERS_QUERY, 
     {variables: {input: {username: formData.username, password: formData.password}}})
@@ -36,7 +37,7 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
   }
 
   useEffect(()=>{
-    stateRef.current = {user}
+    stateRef.current = {user, cash}
   })
 
   const [createUser] = useMutation(CREATE_USERS_MUTATION)
@@ -54,19 +55,24 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
   const handleSuccess = () => {
       setFormData(initialData)
       setUser(formData.username)
+      setCash(100000)
   }
 
   const handleCreate=async()=>{
+    console.log('1')
     if(Object.values(formData).some((v)=>!v)){
         setDisplayError(true)
         return
     }
+    console.log('2')
     try{
       await load
         alert(`username ${data.username} already exists!`)
         setFormData(initialData)
+        console.log(data)
         return
     }catch(e){
+      console.log(e)
       if(e==='cant find username!'){
         console.log('new user')
         const newpassword = await hashPassword(formData.password, saltRounds)

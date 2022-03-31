@@ -8,7 +8,7 @@ import MuiAppBar from '@mui/material/AppBar';
 
 const drawerWidth = 240
 
-export default function Bar({handleLogIn,handleSignUp , handleLogOut, signIn, handleOpenDrawer}) {
+export default function Bar({handleLogIn,handleSignUp , handleLogOut, signIn, handleDrawerOpen}) {
 
   const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -42,7 +42,7 @@ export default function Bar({handleLogIn,handleSignUp , handleLogOut, signIn, ha
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={handleOpenDrawer}
+            onClick={handleDrawerOpen}
           >
             <MenuIcon />
           </IconButton>
