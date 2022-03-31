@@ -66,11 +66,15 @@ function App() {
     setOpenHistory(true)
   }
 
+  const handleHome = () => {
+    setOpenHistory(false)
+  }
+
   return (
     <div>
           <CssBaseline />
           <Bar handleLogIn={handleLogIn} handleSignUp={handleOpenSignUp} handleLogOut={handleLogOut} signIn={signIn} handleDrawerOpen={handleDrawerOpen} />
-          <PersistentDrawerLeft open={openDrawer}  handleDrawerClose={handleDrawerClose} username={user} cash={cash} handleOpenHistory={handleOpenHistory}/>
+          <PersistentDrawerLeft open={openDrawer}  handleDrawerClose={handleDrawerClose} username={user} cash={cash} handleOpenHistory={handleOpenHistory} handleHome={handleHome}/>
           <SignUpModal open={openSignUp} handleCloseSignUp={handleCloseSignUp} handleCancel={handleCancelSignUp} stateRef={stateRef}/>
           <SignInModal open={openSignIn} handleClose={handleCloseSignIn} handleCancel={handleCancelSignIn} stateRef={stateRef}/>
           <Background games={result.data} signIn={signIn} user={signIn?user:null} openHistory={openHistory}/>

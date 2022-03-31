@@ -87,7 +87,28 @@ export default function PersistentDrawerLeft(props) {
               <ListItemText primary={'Home'}/>
           </ListItem>
         </List>
-      </Drawer>:<Typography>You Havn't Login Yet!</Typography>}
+      </Drawer>:
+        <Drawer
+          sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}>
+            <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+            </DrawerHeader>
+            <Divider />
+          <Typography>You Havn't Login Yet!</Typography>
+        </Drawer>
+          }
       </>
   );
 }
