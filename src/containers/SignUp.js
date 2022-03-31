@@ -73,9 +73,8 @@ function SignUp( {open, handleCloseSignUp, handleCancel, stateRef} ){
     }catch(e){
       console.log(typeof(e))
       console.log(e)
-      console.log(typeof(e.value))
-      console.log(e.value)
       console.log(typeof(toString(e)))
+      console.log(toString(e))
       if(toString(e)==='cant find username!'){
         console.log('new user')
         const newpassword = await hashPassword(formData.password, saltRounds)
