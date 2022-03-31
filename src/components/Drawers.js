@@ -31,7 +31,7 @@ export default function PersistentDrawerLeft(props) {
   
   const handleHistory = () => {
     handleOpenHistory()
-    handleDrawerClose
+    handleDrawerClose()
   }
 
   return (

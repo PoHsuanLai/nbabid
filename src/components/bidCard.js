@@ -54,7 +54,7 @@ export default function BidCard(props) {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {index.result!==null?`Result: You ${index.result>=0?'Earned':'Lost'} ${index.result>=0?index.result:-index.result}`:`You Bet ${input.bidMoney} On ${props.bidFor}!`}
+          {index.result!==null?`Result: You ${index.result>=0?'Earned':'Lost'} ${index.result>=0?index.result:-index.result}`:`You Bet ${index.bidMoney} On ${index.bidFor}!`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           game date: {data.date}
