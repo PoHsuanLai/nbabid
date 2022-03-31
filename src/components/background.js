@@ -19,11 +19,10 @@ const year = (input) => {
 
 export default function Background(props){
     
-    const {games, signIn, user} = props
+    const {games, signIn, user, openHistory} = props
     const [render, setRender] = React.useState(null)
     const [openBid, setOpenBid] = React.useState(false)
     const [position, setPosition] = React.useState({})
-    const [openHistory, setOpenHistory] = React.useState(false)
     const [date, setDate] = React.useState(new Date())
     const [renderHistory, setRenderHistory] = React.useState(<></>)
     const [load, {called, loading, data}] = useLazyQuery(GET_BIDS_QUERY, {variables: {input: {username: user}}})
@@ -67,6 +66,9 @@ export default function Background(props){
     const handleClick= ()=> {
         setDate(stateRef)
         let currentGames = []
+
+        console.log(typeof(date))
+        console.log(date)
         
         const currentDate = `${year((date.getYear()))}-${month[date.getMonth()]}-${date.getDate()}`
         for (var i in games.games) {
